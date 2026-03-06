@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0d14">
+<meta name="description" content="Sanchez Truck Services — Professional semi-truck greasing. Schedule your grease job today. Call (620) 444-0151.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Sanchez Truck">
+<title>Sanchez Truck Services — Semi-Truck Greasing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0a0d14;
+  --dark: #091222;
+  --steel: #141b2d;
+  --steel2: #1a2238;
+  --blue: #034694;
+  --blue-bright: #0550b0;
+  --red: #EE242C;
+  --red-bright: #ff3d45;
+  --amber: #DBA111;
+  --amber-dim: rgba(219,161,17,0.12);
+  --light-blue: #6A7AB5;
+  --gray: #D1D3D4;
+  --white: #f0f2f8;
+  --muted: #7a85a0;
+  --border: #1e2a45;
+  --border2: #253352;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--black); color:var(--white); font-family:'Barlow',sans-serif; min-height:100vh; overflow-x:hidden; }
+body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events:none; z-index:999; opacity:0.4; }
+
+/* HEADER */
+header { position:relative; background:var(--dark); border-bottom:3px solid var(--blue); padding:0 20px; overflow:hidden; }
+.header-stripe { position:absolute; top:0; left:0; right:0; height:4px; background:repeating-linear-gradient(90deg,var(--amber) 0px,var(--amber) 20px,var(--blue) 20px,var(--blue) 40px,var(--red) 40px,var(--red) 60px); }
+.header-inner { max-width:720px; margin:0 auto; padding:24px 0 16px; display:flex; align-items:flex-end; gap:14px; }
+.logo-icon { width:50px; height:50px; background:var(--blue); border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0; box-shadow:4px 4px 0 rgba(0,0,0,0.5); }
+.logo-text h1 { font-family:'Bebas Neue',sans-serif; font-size:34px; letter-spacing:2px; line-height:1; }
+.logo-text .tagline { font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--amber); margin-top:2px; }
+.logo-text .phone { font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:2px; color:var(--gray); margin-top:2px; }
+.nav-tabs { max-width:720px; margin:0 auto; display:flex; gap:0; padding-top:16px; }
+.nav-tab { font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:9px 14px; background:transparent; border:none; color:var(--muted); cursor:pointer; transition:all 0.2s; border-bottom:3px solid transparent; margin-bottom:-3px; white-space:nowrap; }
+.nav-tab:hover { color:var(--gray); }
+.nav-tab.active { color:var(--white); border-bottom-color:var(--amber); }
+
+/* MAIN */
+main { max-width:720px; margin:0 auto; padding:26px 18px 100px; }
+.panel { display:none; }
+.panel.active { display:block; animation:fadeUp 0.25s ease; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+/* LABELS */
+.section-label { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:4px; text-transform:uppercase; color:var(--amber); margin-bottom:6px; }
+.section-title  { font-family:'Bebas Neue',sans-serif; font-size:34px; letter-spacing:2px; line-height:1; margin-bottom:22px; }
+
+/* STEP INDICATOR */
+.step-indicator { display:flex; gap:6px; align-items:center; margin-bottom:22px; }
+.step { height:3px; flex:1; border-radius:2px; background:var(--border2); transition:background 0.3s; }
+.step.done   { background:var(--blue); }
+.step.active { background:var(--amber); }
+
+/* CALENDAR */
+.calendar-wrap { background:var(--steel); border:1px solid var(--border); border-radius:8px; overflow:hidden; margin-bottom:22px; }
+.cal-header { background:var(--blue); padding:14px 18px; display:flex; align-items:center; justify-content:space-between; }
+.cal-header h3 { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:2px; }
+.cal-nav { background:rgba(255,255,255,0.15); border:none; color:var(--white); width:32px; height:32px; border-radius:4px; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.15s; }
+.cal-nav:hover { background:rgba(255,255,255,0.28); }
+.cal-grid { padding:14px; }
+.cal-days-header { display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:6px; }
+.cal-day-label { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--muted); text-align:center; padding:4px 0; }
+.cal-dates { display:grid; grid-template-columns:repeat(7,1fr); gap:3px; }
+.cal-cell { aspect-ratio:1; display:flex; align-items:center; justify-content:center; border-radius:5px; font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:600; cursor:default; position:relative; transition:all 0.15s; border:1px solid transparent; }
+.cal-cell.past      { color:var(--border2); }
+.cal-cell.unavail   { color:var(--border2); }
+.cal-cell.available { background:rgba(3,70,148,0.2); color:var(--white); cursor:pointer; border-color:rgba(3,70,148,0.35); }
+.cal-cell.available:hover { background:var(--blue); border-color:var(--blue); transform:scale(1.08); }
+.cal-cell.blocked   { background:rgba(238,36,44,0.1); color:var(--red); cursor:not-allowed; border:1px dashed rgba(238,36,44,0.3); text-decoration:line-through; }
+.cal-cell.selected  { background:var(--amber) !important; color:var(--black) !important; border-color:var(--amber) !important; font-weight:700; transform:scale(1.1); }
+.cal-cell.today-dot::after { content:''; position:absolute; bottom:3px; width:4px; height:4px; background:var(--amber); border-radius:50%; }
+.cal-cell.selected.today-dot::after { background:var(--black); }
+
+/* LEGEND */
+.cal-legend { display:flex; flex-wrap:wrap; gap:10px; padding:10px 14px 14px; border-top:1px solid var(--border); }
+.legend-item { display:flex; align-items:center; gap:5px; font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--muted); }
+.legend-dot { width:11px; height:11px; border-radius:3px; }
+.legend-dot.avail  { background:rgba(3,70,148,0.45); border:1px solid rgba(3,70,148,0.6); }
+.legend-dot.block  { background:rgba(238,36,44,0.2); border:1px dashed rgba(238,36,44,0.5); }
+.legend-dot.sel    { background:var(--amber); }
+.legend-dot.nowork { background:var(--border2); }
+
+/* SELECTED DATE BAR */
+.date-bar { background:var(--amber-dim); border:1px solid rgba(219,161,17,0.28); border-radius:6px; padding:11px 16px; margin-bottom:18px; display:flex; align-items:center; justify-content:space-between; }
+.date-bar .dlabel { font-family:'Bebas Neue',sans-serif; font-size:19px; letter-spacing:1px; color:var(--amber); }
+.date-bar .chg { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); background:none; border:none; cursor:pointer; transition:color 0.2s; }
+.date-bar .chg:hover { color:var(--white); }
+
+/* TIME SLOTS */
+.slots-title { font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--light-blue); margin-bottom:10px; }
+.slots-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(108px,1fr)); gap:7px; margin-bottom:20px; }
+.slot-btn { background:var(--steel2); border:1px solid var(--border2); border-radius:5px; padding:10px 6px; font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:600; color:var(--white); cursor:pointer; text-align:center; transition:all 0.15s; }
+.slot-btn:hover  { background:var(--blue); border-color:var(--blue); }
+.slot-btn.taken  { background:transparent; border-color:var(--border); color:var(--border2); cursor:not-allowed; text-decoration:line-through; }
+.slot-btn.chosen { background:var(--amber); border-color:var(--amber); color:var(--black); font-weight:700; }
+
+/* PRICING */
+.pricing-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:24px; }
+@media(max-width:460px){ .pricing-grid{ grid-template-columns:1fr; } }
+.price-card { background:var(--steel); border:1px solid var(--border); border-radius:6px; padding:18px; position:relative; overflow:hidden; cursor:pointer; transition:border-color 0.2s,transform 0.15s; }
+.price-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--blue); transition:background 0.2s; }
+.price-card.selected { border-color:var(--amber); transform:translateY(-2px); }
+.price-card.selected::before { background:var(--amber); }
+.price-card .check { position:absolute; top:10px; right:10px; width:20px; height:20px; background:var(--amber); border-radius:50%; display:none; align-items:center; justify-content:center; font-size:11px; color:var(--black); font-weight:700; }
+.price-card.selected .check { display:flex; }
+.price-amount { font-family:'Bebas Neue',sans-serif; font-size:46px; color:var(--amber); line-height:1; }
+.price-card h3 { font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin:6px 0 3px; }
+.price-card p { font-size:12px; color:var(--muted); line-height:1.4; }
+
+/* FORM */
+.form-group { margin-bottom:16px; }
+label { display:block; font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--light-blue); margin-bottom:6px; }
+input,select,textarea { width:100%; background:var(--steel); border:1px solid var(--border); border-radius:4px; padding:12px 14px; color:var(--white); font-family:'Barlow',sans-serif; font-size:15px; outline:none; transition:border-color 0.2s; -webkit-appearance:none; }
+input:focus,select:focus,textarea:focus { border-color:var(--amber); }
+select option { background:var(--steel); }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+@media(max-width:460px){ .form-row{ grid-template-columns:1fr; } }
+
+/* REMINDER TOGGLE */
+.reminder-row { display:flex; align-items:center; justify-content:space-between; background:var(--steel); border:1px solid var(--border); border-radius:4px; padding:14px; margin-bottom:16px; }
+.reminder-info h4 { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+.reminder-info p { font-size:12px; color:var(--muted); margin-top:2px; }
+.toggle { position:relative; width:46px; height:25px; flex-shrink:0; }
+.toggle input { opacity:0; width:0; height:0; }
+.toggle-slider { position:absolute; inset:0; background:var(--border2); border-radius:25px; cursor:pointer; transition:background 0.2s; }
+.toggle-slider::before { content:''; position:absolute; width:19px; height:19px; left:3px; top:3px; background:var(--gray); border-radius:50%; transition:transform 0.2s; }
+.toggle input:checked + .toggle-slider { background:var(--blue); }
+.toggle input:checked + .toggle-slider::before { transform:translateX(21px); }
+
+/* BUTTONS */
+.btn-primary { width:100%; background:var(--blue); border:none; border-radius:4px; padding:16px; font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:3px; color:var(--white); cursor:pointer; transition:background 0.2s,transform 0.1s; box-shadow:0 4px 18px rgba(3,70,148,0.4); }
+.btn-primary:hover { background:var(--blue-bright); }
+.btn-primary:active { transform:scale(0.99); }
+.btn-primary:disabled { background:var(--border2); color:var(--muted); cursor:not-allowed; box-shadow:none; }
+.btn-secondary { background:transparent; border:1px solid var(--border2); border-radius:4px; padding:11px 24px; font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); cursor:pointer; transition:border-color 0.2s,color 0.2s; }
+.btn-secondary:hover { border-color:var(--amber); color:var(--white); }
+
+/* BANNER */
+.info-banner { background:linear-gradient(135deg,rgba(3,70,148,0.12),rgba(219,161,17,0.08)); border:1px solid rgba(3,70,148,0.3); border-radius:6px; padding:13px 16px; margin-bottom:22px; display:flex; align-items:center; gap:12px; font-size:13px; color:var(--gray); line-height:1.5; }
+.info-banner .icon { font-size:20px; flex-shrink:0; }
+.info-banner strong { color:var(--amber); }
+
+/* SUCCESS */
+.success-screen { display:none; text-align:center; padding:50px 20px; }
+.success-screen.show { display:block; }
+.success-icon { width:74px; height:74px; background:var(--blue); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; margin:0 auto 20px; animation:popIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275); }
+@keyframes popIn { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+.success-screen h2 { font-family:'Bebas Neue',sans-serif; font-size:42px; letter-spacing:2px; margin-bottom:10px; }
+.success-screen p { color:var(--muted); font-size:14px; line-height:1.6; max-width:360px; margin:0 auto 26px; }
+
+/* MY JOBS */
+.schedule-list { display:flex; flex-direction:column; gap:8px; }
+.schedule-item { background:var(--steel); border:1px solid var(--border); border-radius:6px; padding:16px; display:flex; align-items:center; gap:12px; animation:slideIn 0.25s ease; }
+@keyframes slideIn { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
+.schedule-date { text-align:center; min-width:46px; }
+.schedule-date .day { font-family:'Bebas Neue',sans-serif; font-size:28px; line-height:1; color:var(--amber); }
+.schedule-date .mon { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
+.schedule-vline { width:1px; height:44px; background:var(--border2); flex-shrink:0; }
+.schedule-details { flex:1; }
+.schedule-details h4 { font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; }
+.schedule-details p  { font-size:12px; color:var(--muted); margin-top:2px; }
+.badge { font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:4px 9px; border-radius:3px; background:rgba(3,70,148,0.15); border:1px solid rgba(3,70,148,0.3); color:var(--light-blue); }
+.empty-state { text-align:center; padding:52px 20px; color:var(--muted); }
+.empty-state .icon { font-size:42px; margin-bottom:12px; }
+.empty-state p { font-family:'Barlow Condensed',sans-serif; font-size:14px; letter-spacing:1px; text-transform:uppercase; }
+
+/* PAY */
+.payment-box { background:var(--steel); border:1px solid var(--border); border-radius:6px; padding:20px; display:flex; align-items:center; gap:16px; margin-bottom:16px; text-decoration:none; transition:border-color 0.2s; }
+.payment-box:hover { border-color:var(--amber); }
+.cashapp-icon { width:52px; height:52px; background:#00D632; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:26px; flex-shrink:0; font-weight:900; color:white; font-family:'Bebas Neue',sans-serif; letter-spacing:-1px; }
+.payment-info h3 { font-family:'Barlow Condensed',sans-serif; font-size:16px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+.payment-info p { font-size:12px; color:var(--muted); margin-top:3px; }
+.payment-tag { font-family:'Bebas Neue',sans-serif; font-size:20px; color:#00D632; letter-spacing:1px; margin-top:2px; }
+.payment-arrow { margin-left:auto; color:var(--muted); font-size:20px; }
+
+/* INFO */
+.info-card { background:var(--steel); border:1px solid var(--border); border-radius:6px; padding:20px; margin-bottom:12px; }
+.info-card h3 { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--amber); margin-bottom:10px; }
+.info-card p,.info-card li { font-size:14px; color:var(--gray); line-height:1.7; }
+.info-card ul { padding-left:18px; }
+.info-stat { display:flex; justify-content:space-between; align-items:center; padding:9px 0; border-bottom:1px solid var(--border); }
+.info-stat:last-child { border-bottom:none; }
+.info-stat span:first-child { font-family:'Barlow Condensed',sans-serif; font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; font-weight:600; }
+.info-stat span:last-child { font-family:'Bebas Neue',sans-serif; font-size:20px; color:var(--amber); }
+
+/* TRAILER ADD-ONS */
+.addons-label { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--light-blue); margin-bottom:10px; margin-top:4px; }
+.addon-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:24px; }
+@media(max-width:460px){ .addon-grid{ grid-template-columns:1fr; } }
+.addon-card { background:var(--steel); border:1px solid var(--border); border-radius:6px; padding:16px; cursor:pointer; transition:border-color 0.2s, transform 0.15s; display:flex; align-items:center; gap:12px; }
+.addon-card:hover { border-color:var(--border2); }
+.addon-card.selected { border-color:var(--amber); transform:translateY(-1px); background:rgba(219,161,17,0.07); }
+.addon-check { width:20px; height:20px; border:2px solid var(--border2); border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 0.15s; font-size:11px; color:var(--black); font-weight:700; }
+.addon-card.selected .addon-check { background:var(--amber); border-color:var(--amber); }
+.addon-info { flex:1; }
+.addon-info h4 { font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; }
+.addon-info p { font-size:12px; color:var(--muted); margin-top:2px; }
+.addon-price { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--amber); }
+
+/* PRICE SUMMARY BAR */
+.price-summary { background:rgba(3,70,148,0.12); border:1px solid rgba(3,70,148,0.25); border-radius:6px; padding:14px 18px; margin-bottom:20px; display:flex; align-items:center; justify-content:space-between; }
+.price-summary .label { font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
+.price-summary .total { font-family:'Bebas Neue',sans-serif; font-size:28px; color:var(--amber); letter-spacing:1px; }
+.price-summary .breakdown { font-size:11px; color:var(--muted); margin-top:2px; }
+
+.pricing-note { background:rgba(219,161,17,0.07); border:1px solid rgba(219,161,17,0.2); border-radius:4px; padding:12px; font-size:13px; color:var(--gray); line-height:1.5; }
+.pricing-note strong { color:var(--amber); }
+hr { border:none; border-top:1px solid var(--border); margin:26px 0; }
+
+/* ── ADMIN ── */
+.admin-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; }
+.admin-login { max-width:360px; margin:0 auto; padding-top:16px; }
+.logout-btn { background:transparent; border:1px solid var(--border2); border-radius:4px; padding:7px 14px; font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); cursor:pointer; transition:all 0.2s; }
+.logout-btn:hover { border-color:var(--red); color:var(--red); }
+.admin-instructions { background:rgba(219,161,17,0.07); border:1px solid rgba(219,161,17,0.2); border-radius:6px; padding:13px 16px; margin-bottom:16px; font-size:13px; color:var(--gray); line-height:1.6; }
+.admin-instructions strong { color:var(--amber); }
+
+/* Admin calendar cells */
+.admin-cell { aspect-ratio:1; display:flex; align-items:center; justify-content:center; border-radius:5px; font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:600; cursor:pointer; position:relative; transition:all 0.15s; border:1px solid transparent; }
+.admin-cell.empty  { cursor:default; }
+.admin-cell.past   { color:var(--border2); cursor:not-allowed; }
+.admin-cell.workday { background:rgba(3,70,148,0.2); border-color:rgba(3,70,148,0.35); color:var(--white); }
+.admin-cell.workday:hover { background:rgba(238,36,44,0.22); border-color:rgba(238,36,44,0.45); }
+.admin-cell.offday  { color:var(--muted); }
+.admin-cell.offday:hover { background:rgba(3,70,148,0.1); border-color:rgba(3,70,148,0.2); }
+.admin-cell.blockedday { background:rgba(238,36,44,0.14); border:1px dashed rgba(238,36,44,0.4); color:var(--red); text-decoration:line-through; }
+.admin-cell.blockedday:hover { background:rgba(3,70,148,0.2); border-color:rgba(3,70,148,0.4); text-decoration:none; color:var(--white); }
+.admin-cell.has-bookings::before { content:''; position:absolute; top:3px; right:3px; width:5px; height:5px; background:var(--amber); border-radius:50%; }
+
+.admin-booked-list { display:flex; flex-direction:column; gap:7px; }
+.admin-appt { background:var(--steel2); border:1px solid var(--border); border-radius:5px; padding:12px 14px; display:flex; align-items:center; gap:10px; font-size:13px; }
+.admin-appt .atime { font-family:'Bebas Neue',sans-serif; font-size:17px; color:var(--amber); min-width:65px; }
+.admin-appt .aname { flex:1; color:var(--white); font-weight:500; }
+.admin-appt .apkg  { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--light-blue); }
+.admin-day-section { margin-bottom:20px; animation:fadeUp 0.2s ease; }
+.admin-day-section h4 { font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--light-blue); margin-bottom:8px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-stripe"></div>
+  <div class="header-inner">
+    <div class="logo-icon">⚙️</div>
+    <div class="logo-text">
+      <h1>Sanchez Truck Services</h1>
+      <p class="tagline">Semi-Truck Greasing Service</p>
+      <p class="phone">(620) 444-0151</p>
+    </div>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="switchTab('schedule')">Schedule</button>
+    <button class="nav-tab"        onclick="switchTab('jobs')">My Jobs</button>
+    <button class="nav-tab"        onclick="switchTab('pay')">Pay</button>
+    <button class="nav-tab"        onclick="switchTab('info')">Info</button>
+    <button class="nav-tab"        onclick="switchTab('admin')">⚙ Owner</button>
+  </div>
+</header>
+
+<main>
+
+<!-- ══════════ SCHEDULE ══════════ -->
+<div id="panel-schedule" class="panel active">
+  <div id="booking-flow">
+    <div class="step-indicator">
+      <div class="step active" id="stp1"></div>
+      <div class="step"        id="stp2"></div>
+      <div class="step"        id="stp3"></div>
+    </div>
+
+    <!-- STEP 1: DATE -->
+    <div id="s-date">
+      <div class="section-label">Step 1 of 3</div>
+      <div class="section-title">Pick a Date</div>
+      <div class="info-banner">
+        <span class="icon">🔧</span>
+        <span>Semi-trucks need greasing <strong>every 2 weeks</strong>. Tap a blue date to select your service day.</span>
+      </div>
+      <div class="calendar-wrap">
+        <div class="cal-header">
+          <button class="cal-nav" onclick="calMove(-1)">&#8249;</button>
+          <h3 id="cal-label">Month</h3>
+          <button class="cal-nav" onclick="calMove(1)">&#8250;</button>
+        </div>
+        <div class="cal-grid">
+          <div class="cal-days-header">
+            <div class="cal-day-label">Su</div><div class="cal-day-label">Mo</div>
+            <div class="cal-day-label">Tu</div><div class="cal-day-label">We</div>
+            <div class="cal-day-label">Th</div><div class="cal-day-label">Fr</div>
+            <div class="cal-day-label">Sa</div>
+          </div>
+          <div class="cal-dates" id="cal-dates"></div>
+        </div>
+        <div class="cal-legend">
+          <div class="legend-item"><div class="legend-dot avail"></div>Available</div>
+          <div class="legend-item"><div class="legend-dot block"></div>Blocked</div>
+          <div class="legend-item"><div class="legend-dot sel"></div>Selected</div>
+          <div class="legend-item"><div class="legend-dot nowork"></div>Unavailable</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: TIME -->
+    <div id="s-time" style="display:none">
+      <div class="section-label">Step 2 of 3</div>
+      <div class="section-title">Pick a Time</div>
+      <div class="date-bar">
+        <span class="dlabel" id="chosen-date-lbl">—</span>
+        <button class="chg" onclick="goStep(1)">&#8592; Change Date</button>
+      </div>
+      <div class="slots-title">Available Time Slots</div>
+      <div class="slots-grid" id="slots-grid"></div>
+      <button class="btn-primary" id="btn-next-form" onclick="goStep(3)" disabled>CONTINUE &#8594;</button>
+    </div>
+
+    <!-- STEP 3: FORM -->
+    <div id="s-form" style="display:none">
+      <div class="section-label">Step 3 of 3</div>
+      <div class="section-title">Your Details</div>
+      <div class="date-bar">
+        <span class="dlabel" id="chosen-dt-lbl">—</span>
+        <button class="chg" onclick="goStep(2)">&#8592; Change Time</button>
+      </div>
+
+      <div class="section-label" style="margin-bottom:8px">Select Package</div>
+      <div class="pricing-grid">
+        <div class="price-card selected" id="pkg-owner" onclick="selectPkg('owner',this)">
+          <div class="check">&#10003;</div>
+          <div class="price-amount">$35</div>
+          <h3>You Supply Grease</h3>
+          <p>You provide the grease. We do the work.</p>
+        </div>
+        <div class="price-card" id="pkg-full" onclick="selectPkg('full',this)">
+          <div class="check">&#10003;</div>
+          <div class="price-amount">$55</div>
+          <h3>Full Service</h3>
+          <p>We supply everything. Just show up.</p>
+        </div>
+      </div>
+
+
+      <div class="addons-label">Trailer Add-Ons (optional)</div>
+      <div class="addon-grid">
+        <div class="addon-card" id="addon-grain" onclick="toggleAddon('grain',this)">
+          <div class="addon-check" id="check-grain"></div>
+          <div class="addon-info">
+            <h4>Grain Trailer</h4>
+            <p>Additional trailer greasing</p>
+          </div>
+          <span class="addon-price">+$15</span>
+        </div>
+        <div class="addon-card" id="addon-cattle" onclick="toggleAddon('cattle',this)">
+          <div class="addon-check" id="check-cattle"></div>
+          <div class="addon-info">
+            <h4>Cattle Trailer</h4>
+            <p>Additional trailer greasing</p>
+          </div>
+          <span class="addon-price">+$20</span>
+        </div>
+      </div>
+
+      <!-- LIVE PRICE SUMMARY -->
+      <div class="price-summary" id="price-summary">
+        <div>
+          <div class="label">Estimated Total</div>
+          <div class="breakdown" id="price-breakdown">Semi-truck only</div>
+        </div>
+        <div class="total" id="price-total">$35</div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input type="text" id="fname" placeholder="John" autocomplete="given-name"></div>
+        <div class="form-group"><label>Last Name</label><input type="text" id="lname" placeholder="Smith" autocomplete="family-name"></div>
+      </div>
+      <div class="form-group"><label>Phone Number</label><input type="tel" id="cphone" placeholder="(555) 000-0000" autocomplete="tel"></div>
+      <div class="form-group"><label>Truck (Year, Make, Model)</label><input type="text" id="truck" placeholder="e.g. 2019 Peterbilt 389"></div>
+      <div class="form-group"><label>Location / Address</label><input type="text" id="location" placeholder="Truck yard or address"></div>
+      <div class="form-group"><label>Notes (optional)</label><textarea id="notes" rows="2" placeholder="Anything we should know..."></textarea></div>
+
+      <div class="reminder-row">
+        <div class="reminder-info">
+          <h4>&#128197; Email Reminders</h4>
+          <p>Get reminded 3 days before your next greasing is due</p>
+        </div>
+        <label class="toggle"><input type="checkbox" id="rem-toggle" checked><span class="toggle-slider"></span></label>
+      </div>
+      <div id="email-wrap" class="form-group"><label>Email Address</label><input type="email" id="email" placeholder="you@email.com" autocomplete="email"></div>
+
+      <button class="btn-primary" onclick="submitBooking()">CONFIRM BOOKING &#8594;</button>
+      <div style="margin-top:12px"><div class="pricing-note"><strong>Payment due after service.</strong> Pay via Cash App once your job is complete — see the Pay tab.</div></div>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-screen" id="success-screen">
+    <div class="success-icon">&#10003;</div>
+    <h2>You're Booked!</h2>
+    <p id="success-msg">Your appointment has been scheduled.</p>
+    <div style="margin-bottom:12px"><button class="btn-primary" style="max-width:300px;margin:0 auto;display:block" onclick="switchTab('pay')">PAY NOW VIA CASH APP</button></div>
+    <button class="btn-secondary" onclick="resetBooking()">Book Another</button>
+  </div>
+</div>
+
+<!-- ══════════ MY JOBS ══════════ -->
+<div id="panel-jobs" class="panel">
+  <div class="section-label">History</div>
+  <div class="section-title">My Jobs</div>
+  <div id="jobs-list"></div>
+</div>
+
+<!-- ══════════ PAY ══════════ -->
+<div id="panel-pay" class="panel">
+  <div class="section-label">Payment</div>
+  <div class="section-title">Pay Your Balance</div>
+  <a href="https://cash.app/$EstebanSanchez1229" target="_blank" class="payment-box">
+    <div class="cashapp-icon">$</div>
+    <div class="payment-info">
+      <h3>Pay via Cash App</h3>
+      <p>Tap to open Cash App and send payment</p>
+      <div class="payment-tag">$EstebanSanchez1229</div>
+    </div>
+    <span class="payment-arrow">&#8594;</span>
+  </a>
+  <div class="info-card">
+    <h3>Pricing</h3>
+    <div class="info-stat"><span>You Supply Grease</span><span>$35</span></div>
+    <div class="info-stat"><span>Full Service (We Supply)</span><span>$55</span></div>
+  </div>
+  <div class="pricing-note">Payment is due <strong>after each service</strong>. Include your name or truck info in the Cash App note.</div>
+</div>
+
+<!-- ══════════ INFO ══════════ -->
+<div id="panel-info" class="panel">
+  <div class="section-label">About</div>
+  <div class="section-title">How It Works</div>
+  <div class="info-card"><h3>Service Frequency</h3><p>Semi-trucks should be greased <strong style="color:var(--amber)">every 2 weeks</strong> to keep all fittings, joints, and components lubricated and prevent premature wear.</p></div>
+  <div class="info-card"><h3>What's Included</h3><ul><li>Full chassis lubrication</li><li>5th wheel greasing</li><li>All grease fittings serviced</li><li>Drive shaft U-joints</li><li>Slack adjusters</li><li>King pins &amp; steering components</li></ul></div>
+  <div class="info-card"><h3>Pricing</h3><div class="info-stat"><span>You Supply Grease</span><span>$35 / truck</span></div><div class="info-stat"><span>We Supply Grease</span><span>$55 / truck</span></div><div class="info-stat"><span>Grain Trailer Add-On</span><span>+$15</span></div><div class="info-stat"><span>Cattle Trailer Add-On</span><span>+$20</span></div></div>
+  <div class="info-card"><h3>Contact</h3><p style="color:var(--gray)">Questions? Reach out anytime.</p><p style="margin-top:9px"><strong style="color:var(--amber)">Phone:</strong> (620) 444-0151</p><p style="margin-top:7px"><strong style="color:var(--amber)">Cash App:</strong> $EstebanSanchez1229</p></div>
+</div>
+
+<!-- ══════════ ADMIN / OWNER ══════════ -->
+<div id="panel-admin" class="panel">
+
+  <!-- LOGIN -->
+  <div id="admin-login">
+    <div class="section-label">Owner Access</div>
+    <div class="section-title">Owner Login</div>
+    <div class="admin-login">
+      <div class="form-group"><label>Password</label><input type="password" id="admin-pw" placeholder="Enter owner password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+      <button class="btn-primary" onclick="doLogin()">LOG IN &#8594;</button>
+      <p id="login-err" style="color:var(--red);font-size:13px;margin-top:10px;text-align:center;display:none">Incorrect password.</p>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="admin-dash" style="display:none">
+    <div class="admin-header">
+      <div>
+        <div class="section-label">Owner Panel</div>
+        <div class="section-title" style="margin-bottom:0">Manage Schedule</div>
+      </div>
+      <button class="logout-btn" onclick="doLogout()">Logout</button>
+    </div>
+
+    <div class="admin-instructions">
+      <strong>Tap a blue (work) day to block it</strong> — games, school events, days off. <strong>Tap red to unblock.</strong> A gold dot = booking exists on that day.
+    </div>
+
+    <div class="calendar-wrap">
+      <div class="cal-header" style="background:var(--dark);border-bottom:1px solid var(--border)">
+        <button class="cal-nav" onclick="adminCalMove(-1)">&#8249;</button>
+        <h3 id="admin-cal-label" style="font-size:20px;color:var(--white)">Month</h3>
+        <button class="cal-nav" onclick="adminCalMove(1)">&#8250;</button>
+      </div>
+      <div class="cal-grid">
+        <div class="cal-days-header">
+          <div class="cal-day-label">Su</div><div class="cal-day-label">Mo</div>
+          <div class="cal-day-label">Tu</div><div class="cal-day-label">We</div>
+          <div class="cal-day-label">Th</div><div class="cal-day-label">Fr</div>
+          <div class="cal-day-label">Sa</div>
+        </div>
+        <div class="cal-dates" id="admin-cal-dates"></div>
+      </div>
+      <div class="cal-legend">
+        <div class="legend-item"><div class="legend-dot avail"></div>Work Day (tap to block)</div>
+        <div class="legend-item"><div class="legend-dot block"></div>Blocked (tap to unblock)</div>
+        <div class="legend-item"><div class="legend-dot nowork"></div>Off Day</div>
+      </div>
+    </div>
+
+    <!-- DAY DETAIL -->
+    <div id="admin-day-detail" style="display:none;margin-bottom:24px" class="admin-day-section">
+      <h4 id="admin-day-title">Bookings — </h4>
+      <div id="admin-day-appts"></div>
+    </div>
+
+    <hr>
+    <div class="section-label" style="margin-bottom:8px">All Upcoming Bookings</div>
+    <div id="admin-all-appts"></div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// ─── CONFIG ─────────────────────────────────
+const ADMIN_PW       = 'sanchez2025'; // ← change this!
+const WORK_DAYS      = new Set([0, 1, 6]); // Sun=0, Mon=1, Sat=6
+const WD_HOURS       = { start:16, end:20 }; // Mon 4PM–8PM
+const WE_HOURS       = { start:8,  end:17 }; // Sat/Sun 8AM–5PM
+const SLOT_MIN       = 60;
+const MONTHS_LBL     = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+// ─── STATE ──────────────────────────────────
+const NOW = new Date();
+let calY = NOW.getFullYear(), calM = NOW.getMonth();
+let aCalY = NOW.getFullYear(), aCalM = NOW.getMonth();
+let selDate = null, selSlot = null, selPkg = 'owner';
+let addons = { grain: false, cattle: false };
+let blocked  = JSON.parse(localStorage.getItem('sts_blocked') || '[]');
+let appts    = JSON.parse(localStorage.getItem('sts_appts')   || '[]');
+let adminIn  = false;
+
+function saveB() { localStorage.setItem('sts_blocked', JSON.stringify(blocked)); }
+function saveA() { localStorage.setItem('sts_appts',   JSON.stringify(appts)); }
+
+// ─── DATE HELPERS ───────────────────────────
+function dkey(y,m,d){ return `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`; }
+function dparse(k){ const [y,m,d]=k.split('-').map(Number); return new Date(y,m-1,d); }
+function isWorkDay(k){ return WORK_DAYS.has(dparse(k).getDay()); }
+function isBlocked(k){ return blocked.includes(k); }
+function isPast(y,m,d){ const t=new Date(); t.setHours(0,0,0,0); return new Date(y,m,d)<t; }
+function isToday(y,m,d){ return y===NOW.getFullYear()&&m===NOW.getMonth()&&d===NOW.getDate(); }
+function getHours(k){ const dw=dparse(k).getDay(); return dw===1?WD_HOURS:WE_HOURS; }
+function fmtLong(k){ return dparse(k).toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'}); }
+function fmtShort(k){ return dparse(k).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}); }
+
+function genSlots(k){
+  const {start,end}=getHours(k); const slots=[];
+  for(let m=start*60;m<end*60;m+=SLOT_MIN){
+    const h=Math.floor(m/60),mm=m%60,ap=h>=12?'PM':'AM',h12=h>12?h-12:(h===0?12:h);
+    slots.push(`${h12}:${String(mm).padStart(2,'0')} ${ap}`);
+  }
+  return slots;
+}
+
+function takenSlots(k){ return appts.filter(a=>a.date===k).map(a=>a.time); }
+function hasBooking(k){ return appts.some(a=>a.date===k); }
+
+// ─── TABS ────────────────────────────────────
+const TABS = ['schedule','jobs','pay','info','admin'];
+function switchTab(t){
+  TABS.forEach((id,i)=>{
+    document.querySelectorAll('.nav-tab')[i].classList.toggle('active',id===t);
+    document.getElementById('panel-'+id).classList.toggle('active',id===t);
+  });
+  if(t==='jobs')  renderJobs();
+  if(t==='admin'){ if(adminIn){renderAdminCal();renderAllAppts();} }
+}
+
+// ─── CUSTOMER CALENDAR ───────────────────────
+function initCal(){ calY=NOW.getFullYear(); calM=NOW.getMonth(); renderCal(); }
+
+function calMove(dir){
+  calM+=dir;
+  if(calM<0){calM=11;calY--;} if(calM>11){calM=0;calY++;}
+  renderCal();
+}
+
+function renderCal(){
+  document.getElementById('cal-label').textContent=`${MONTHS_LBL[calM]} ${calY}`;
+  const first=new Date(calY,calM,1).getDay();
+  const dim=new Date(calY,calM+1,0).getDate();
+  const g=document.getElementById('cal-dates'); g.innerHTML='';
+  for(let i=0;i<first;i++){const e=document.createElement('div');e.className='cal-cell';g.appendChild(e);}
+  for(let d=1;d<=dim;d++){
+    const e=document.createElement('div'); e.className='cal-cell'; e.textContent=d;
+    const k=dkey(calY,calM,d);
+    if(isToday(calY,calM,d)) e.classList.add('today-dot');
+    if(isPast(calY,calM,d))         { e.classList.add('past'); }
+    else if(isBlocked(k))           { e.classList.add('blocked'); e.title='Not available'; }
+    else if(!isWorkDay(k))          { e.classList.add('unavail'); }
+    else if(k===selDate)            { e.classList.add('available','selected'); e.onclick=()=>pickDate(k); }
+    else                            { e.classList.add('available'); e.onclick=()=>pickDate(k); }
+    g.appendChild(e);
+  }
+}
+
+function pickDate(k){
+  selDate=k; selSlot=null;
+  goStep(2);
+  document.getElementById('chosen-date-lbl').textContent=fmtLong(k);
+  renderSlots(k);
+  renderCal();
+}
+
+// ─── STEPS ───────────────────────────────────
+function goStep(n){
+  document.getElementById('s-date').style.display=n===1?'block':'none';
+  document.getElementById('s-time').style.display=n===2?'block':'none';
+  document.getElementById('s-form').style.display=n===3?'block':'none';
+  document.getElementById('stp1').className='step '+(n===1?'active':'done');
+  document.getElementById('stp2').className='step '+(n===1?'':(n===2?'active':'done'));
+  document.getElementById('stp3').className='step '+(n===3?'active':'');
+  if(n===3) document.getElementById('chosen-dt-lbl').textContent=`${fmtShort(selDate)} · ${selSlot}`;
+}
+
+// ─── SLOTS ───────────────────────────────────
+function renderSlots(k){
+  const slots=genSlots(k), taken=takenSlots(k);
+  const g=document.getElementById('slots-grid'); g.innerHTML='';
+  document.getElementById('btn-next-form').disabled=true;
+  slots.forEach(s=>{
+    const b=document.createElement('button'); b.className='slot-btn'; b.textContent=s;
+    if(taken.includes(s)){ b.classList.add('taken'); b.disabled=true; }
+    else b.onclick=()=>pickSlot(s);
+    g.appendChild(b);
+  });
+}
+
+function pickSlot(s){
+  selSlot=s;
+  document.querySelectorAll('.slot-btn').forEach(b=>b.classList.toggle('chosen',b.textContent===s));
+  document.getElementById('btn-next-form').disabled=false;
+}
+
+// ─── FORM ────────────────────────────────────
+document.getElementById('rem-toggle').addEventListener('change',function(){
+  document.getElementById('email-wrap').style.display=this.checked?'block':'none';
+});
+
+function selectPkg(type,el){
+  selPkg=type;
+  document.querySelectorAll('.price-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  updatePriceSummary();
+}
+
+
+function toggleAddon(type, el){
+  addons[type] = !addons[type];
+  el.classList.toggle('selected', addons[type]);
+  document.getElementById('check-'+type).textContent = addons[type] ? '✓' : '';
+  updatePriceSummary();
+}
+
+function updatePriceSummary(){
+  const base  = selPkg === 'owner' ? 35 : 55;
+  const grain  = addons.grain  ? 15 : 0;
+  const cattle = addons.cattle ? 20 : 0;
+  const total  = base + grain + cattle;
+  document.getElementById('price-total').textContent = '$' + total;
+  const parts = [selPkg === 'owner' ? 'Truck $35' : 'Truck $55'];
+  if(addons.grain)  parts.push('Grain Trailer +$15');
+  if(addons.cattle) parts.push('Cattle Trailer +$20');
+  document.getElementById('price-breakdown').textContent = parts.join(' · ');
+}
+
+function submitBooking(){
+  const v=id=>document.getElementById(id).value.trim();
+  if(!v('fname')||!v('lname')||!v('cphone')||!v('truck')||!v('location')){
+    alert('Please fill in all required fields.'); return;
+  }
+  const base=selPkg==='owner'?35:55;
+  const pkg=selPkg==='owner'?'You Supply Grease':'Full Service';
+  const addonList=[]; if(addons.grain) addonList.push('Grain Trailer (+$15)'); if(addons.cattle) addonList.push('Cattle Trailer (+$20)');
+  const price=base+(addons.grain?15:0)+(addons.cattle?20:0);
+  appts.unshift({id:Date.now(),name:`${v('fname')} ${v('lname')}`,phone:v('cphone'),truck:v('truck'),location:v('location'),date:selDate,time:selSlot,package:pkg,addons:addonList,price,notes:v('notes'),email:v('email'),reminder:document.getElementById('rem-toggle').checked,createdAt:new Date().toISOString()});
+  saveA();
+  document.getElementById('booking-flow').style.display='none';
+  document.getElementById('success-screen').classList.add('show');
+  document.getElementById('success-msg').textContent=`${pkg} ($${price}) booked for ${fmtLong(selDate)} at ${selSlot}. We'll see you then!`;
+}
+
+function resetBooking(){
+  document.getElementById('booking-flow').style.display='block';
+  document.getElementById('success-screen').classList.remove('show');
+  selDate=null; selSlot=null;
+  ['fname','lname','cphone','truck','location','notes','email'].forEach(id=>{ document.getElementById(id).value=''; });
+  addons={grain:false,cattle:false};
+  ['grain','cattle'].forEach(t=>{ document.getElementById('addon-'+t).classList.remove('selected'); document.getElementById('check-'+t).textContent=''; });
+  updatePriceSummary();
+  goStep(1); renderCal();
+}
+
+// ─── MY JOBS ─────────────────────────────────
+function renderJobs(){
+  const c=document.getElementById('jobs-list');
+  if(!appts.length){ c.innerHTML=`<div class="empty-state"><div class="icon">🔧</div><p>No appointments yet</p></div>`; return; }
+  c.innerHTML=`<div class="schedule-list">${appts.map(a=>{const d=dparse(a.date);return`<div class="schedule-item"><div class="schedule-date"><div class="day">${d.getDate()}</div><div class="mon">${d.toLocaleDateString('en-US',{month:'short'}).toUpperCase()}</div></div><div class="schedule-vline"></div><div class="schedule-details"><h4>${a.truck}</h4><p>${a.time} · ${a.package}</p></div><span class="badge">$${a.price}</span></div>`}).join('')}</div>`;
+}
+
+// ─── ADMIN ───────────────────────────────────
+function doLogin(){
+  if(document.getElementById('admin-pw').value===ADMIN_PW){
+    adminIn=true;
+    document.getElementById('admin-login').style.display='none';
+    document.getElementById('admin-dash').style.display='block';
+    initAdminCal(); renderAllAppts();
+  } else {
+    document.getElementById('login-err').style.display='block';
+  }
+}
+
+function doLogout(){
+  adminIn=false;
+  document.getElementById('admin-pw').value='';
+  document.getElementById('login-err').style.display='none';
+  document.getElementById('admin-login').style.display='block';
+  document.getElementById('admin-dash').style.display='none';
+}
+
+function initAdminCal(){ aCalY=NOW.getFullYear(); aCalM=NOW.getMonth(); renderAdminCal(); }
+
+function adminCalMove(dir){
+  aCalM+=dir;
+  if(aCalM<0){aCalM=11;aCalY--;} if(aCalM>11){aCalM=0;aCalY++;}
+  renderAdminCal();
+}
+
+function renderAdminCal(){
+  document.getElementById('admin-cal-label').textContent=`${MONTHS_LBL[aCalM]} ${aCalY}`;
+  const first=new Date(aCalY,aCalM,1).getDay();
+  const dim=new Date(aCalY,aCalM+1,0).getDate();
+  const g=document.getElementById('admin-cal-dates'); g.innerHTML='';
+  for(let i=0;i<first;i++){const e=document.createElement('div');e.className='admin-cell empty';g.appendChild(e);}
+  for(let d=1;d<=dim;d++){
+    const e=document.createElement('div'); e.className='admin-cell'; e.textContent=d;
+    const k=dkey(aCalY,aCalM,d);
+    if(isToday(aCalY,aCalM,d)) e.classList.add('today-dot');
+    if(hasBooking(k)) e.classList.add('has-bookings');
+    if(isPast(aCalY,aCalM,d)){ e.classList.add('past'); }
+    else if(isBlocked(k))    { e.classList.add('blockedday'); e.title='Blocked — tap to unblock'; e.onclick=()=>toggleBlock(k); }
+    else if(isWorkDay(k))    { e.classList.add('workday'); e.title='Work day — tap to block'; e.onclick=()=>toggleBlock(k); }
+    else                     { e.classList.add('offday'); e.title='Off day — tap to block/add'; e.onclick=()=>toggleBlock(k); }
+    g.appendChild(e);
+  }
+}
+
+function toggleBlock(k){
+  const i=blocked.indexOf(k);
+  if(i!==-1) blocked.splice(i,1); else blocked.push(k);
+  saveB(); renderAdminCal(); renderCal(); showDayDetail(k);
+}
+
+function showDayDetail(k){
+  const sec=document.getElementById('admin-day-detail');
+  const lst=document.getElementById('admin-day-appts');
+  document.getElementById('admin-day-title').textContent=`Bookings — ${fmtLong(k)}`;
+  sec.style.display='block';
+  const da=appts.filter(a=>a.date===k);
+  if(!da.length){ lst.innerHTML=`<p style="color:var(--muted);font-size:13px;padding:10px 0">No bookings on this day.</p>`; return; }
+  lst.innerHTML=`<div class="admin-booked-list">${da.map(a=>`<div class="admin-appt"><span class="atime">${a.time}</span><span class="aname">${a.name}<br><span style="color:var(--muted);font-size:11px">${a.truck}</span></span><span class="apkg">$${a.price}</span></div>`).join('')}</div>`;
+}
+
+function renderAllAppts(){
+  const c=document.getElementById('admin-all-appts');
+  const tod=new Date(); tod.setHours(0,0,0,0);
+  const up=appts.filter(a=>dparse(a.date)>=tod).sort((a,b)=>a.date.localeCompare(b.date)||a.time.localeCompare(b.time));
+  if(!up.length){ c.innerHTML=`<p style="color:var(--muted);font-size:13px">No upcoming bookings.</p>`; return; }
+  c.innerHTML=`<div class="admin-booked-list">${up.map(a=>`<div class="admin-appt"><span class="atime" style="font-size:13px;min-width:88px">${fmtShort(a.date)}</span><span class="aname">${a.name}<br><span style="color:var(--muted);font-size:11px">${a.time} · ${a.truck}</span></span><span class="apkg">$${a.price}</span></div>`).join('')}</div>`;
+}
+
+// ─── BOOT ────────────────────────────────────
+initCal();
+</script>
+</body>
+</html>
